@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "prompts.schema.json",
+  "title": "GPT-5 Router-Optimized Prompt Pack",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "generated_at",
+    "router_header_2_0",
+    "prompts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "router_header_2_0": {
+      "type": "object",
+      "required": [
+        "task",
+        "context_grounding",
+        "constraints",
+        "output_contract",
+        "tool_grants",
+        "mode",
+        "self_check",
+        "failure_policy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "type": "string"
+        },
+        "context_grounding": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "string"
+        },
+        "output_contract": {
+          "type": "string"
+        },
+        "tool_grants": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "self_check": {
+          "type": "string"
+        },
+        "failure_policy": {
+          "type": "string"
+        }
+      }
+    },
+    "prompts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "prompt"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9\\-]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "use_when": {
+            "type": "string"
+          },
+          "strict_json_variant": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "last_updated": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "$schema": "./prompts.schema.json",
+  "name": "GPT-5 Router-Optimized Universal Prompt Pack",
+  "version": "1.1",
+  "generated_at": "2025-08-14T16:00:00Z",
+  "router_header_2_0": {
+    "task": "[one sentence describing 'done'].",
+    "context_grounding": "[paste facts/links/notes]. Cite sources if summarizing; don't invent.",
+    "constraints": "audience=[…], tone=[…], length=[…], locality=[region/laws], non_negotiables=[…].",
+    "output_contract": "[exact format/schema; if JSON, include a schema].",
+    "tool_grants": "You may use internal reasoning, code execution, and structured output. Do not expose chain-of-thought; return only final results.",
+    "mode": "Choose 'fast' for simple tasks, 'deep' for complex ones; state the choice on one line before the output.",
+    "self_check": "Validate constraints, factuality (vs. sources), and format before returning. If JSON, ensure it parses.",
+    "failure_policy": "If blocked or context is thin, list missing info and ask 3 sharp questions; otherwise proceed with explicit assumptions labeled 'Assumptions'."
+  },
+  "prompts": [
+    {
+      "id": 1,
+      "slug": "exec-summary",
+      "name": "Executive Summary (Any Topic)",
+      "prompt": "Create exactly 5 one-line bullets summarizing [topic/brief].\\nEach bullet starts with a label: What matters, Why now, Risks, Decision, Next actions.\\nLimit 12 words per bullet. Include 1 source or metric if available.\\nMode: [fast/deep]. Return as a simple bullet list — no preamble.",
+      "use_when": "You need crisp, executive-level clarity in 30–90 seconds.",
+      "strict_json_variant": "{ \"what_matters\": \"\", \"why_now\": \"\", \"risks\": \"\", \"decision\": \"\", \"next_actions\": \"\" }",
+      "tags": ["strategy", "executive", "summary"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 2,
+      "slug": "research-plan-adversarial",
+      "name": "Research Plan (Adversarial)",
+      "prompt": "Design an adversarial research plan to evaluate [claim/feature]. Include:\\n1) Objectives & hypotheses (null + alt);\\n2) Success metrics & thresholds;\\n3) Threat model (abuse, edge cases);\\n4) Data to collect (fields, sample size/power);\\n5) Protocols (A/B, holdout, offline evals);\\n6) Adversarial tests & red-team scripts;\\n7) Stop/continue rule with math;\\n8) Reporting template (tables/plots).\\nMode: [fast/deep]. Output as a numbered outline.",
+      "use_when": "You must test a claim/feature beyond happy-path.",
+      "tags": ["research", "evaluation", "red-team"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 3,
+      "slug": "decision-memo",
+      "name": "Decision Memo",
+      "prompt": "Write a one-page decision memo for [choice]. Include:\\n- Context (1 paragraph) with constraints and evidence;\\n- Options (3): summary, costs (one-time/run), risks, reversibility;\\n- Recommendation: one choice with rationale;\\n- Owner + Decision date; 30/60/90-day checkpoints;\\n- Contingency triggers and rollback plan.\\nMode: [fast/deep]. Keep ≤400 words.",
+      "use_when": "A one-pager to choose among options.",
+      "tags": ["strategy", "decision", "leadership"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 4,
+      "slug": "project-plan-one-pager",
+      "name": "Project Plan One-Pager",
+      "prompt": "From these notes: [paste], produce a one-page plan with:\\n1) Scope (in/out);\\n2) Milestones (name, owner, date) in order;\\n3) Critical path (1–3 bullets);\\n4) Comms cadence (who, channel, frequency);\\n5) RAID summary table (Risk/Assumption/Issue/Dependency → owner, impact, mitigation);\\n6) Acceptance criteria (bullet list).\\nMode: [fast/deep]. Keep it skimmable.",
+      "use_when": "Turn messy notes into a plan.",
+      "tags": ["project", "planning", "delivery"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 5,
+      "slug": "meeting-to-decisions",
+      "name": "Meeting → Decisions",
+      "prompt": "Convert these notes: [paste] into:\\nA) Decisions list (decision, owner, rationale, date);\\nB) Actions table {owner, step, due, status ∈ [New, In-Progress, Blocked, Done]}.\\nMode: [fast/deep]. No commentary, just the two sections.",
+      "use_when": "Converting raw meeting notes into what matters.",
+      "strict_json_variant": "{\\n  \"decisions\": [ { \"decision\": \"\", \"owner\": \"\", \"rationale\": \"\", \"date\": \"\" } ],\\n  \"actions\": [ { \"owner\": \"\", \"step\": \"\", \"due\": \"\", \"status\": \"New|In-Progress|Blocked|Done\" } ]\\n}",
+      "tags": ["meetings", "ops", "execution"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 6,
+      "slug": "cold-email-trio",
+      "name": "Cold Email Trio",
+      "prompt": "Write 3 cold emails for [offer] to [ICP].\\nEmail 1: name the patterned pain; end with a 10-min micro-ask.\\nEmail 2: social proof/insight (number/metric), 1-sentence case study.\\nEmail 3: crisp ask with 2 time options.\\nEach ≤120 words, 5–7 sentences. Include a {First-line personalization} placeholder.\\nMode: [fast/deep].",
+      "use_when": "3-touch outbound sequence.",
+      "tags": ["sales", "outbound", "email"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 7,
+      "slug": "linkedin-authority-post",
+      "name": "LinkedIn Authority Post",
+      "prompt": "Write a LinkedIn post on [topic] for execs and builders:\\n- 3 punchy paragraphs (≤60 words each);\\n- 1 mini-framework (3 bullets, named);\\n- 1 thought prompt (1 line);\\n- Include one concrete number or example; avoid buzzwords.\\nMode: [fast/deep]. No hashtags unless asked.",
+      "use_when": "Thought leadership for execs and builders.",
+      "tags": ["content", "linkedin", "authority"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 8,
+      "slug": "x-post-bold-no-hashtags",
+      "name": "X Post (Bold, No Hashtags)",
+      "prompt": "Write one confident X post on [insight/news]. ≤240 characters.\\nFormat: HOOK — TAKEAWAY. Include one concrete fact or number.\\nNo hashtags. No emoji at the end. Mode: [fast/deep].",
+      "use_when": "High-signal micro-take.",
+      "tags": ["content", "x", "social"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 9,
+      "slug": "youtube-kit",
+      "name": "YouTube Kit",
+      "prompt": "For a video on [topic], produce:\\n- 10 titles (<60 characters);\\n- A two-sentence cold open that states who it’s for and the promise;\\n- Chapter list with timestamps (estimate) and outcomes per chapter.\\nMode: [fast/deep]. No clickbait lies.",
+      "use_when": "Fast ideation and structure for a video.",
+      "tags": ["youtube", "video", "content"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 10,
+      "slug": "content-angle-generator",
+      "name": "Content Angle Generator",
+      "prompt": "List 25 distinct content angles for [niche/product] across:\\nhow-to, contrarian, teardown, story, data, tutorial, tool, myth vs fact.\\nFor each: 1-line angle and a sample headline. No repeats. Mode: [fast/deep].",
+      "use_when": "Topic expansion without repetition.",
+      "tags": ["content", "ideation", "strategy"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 11,
+      "slug": "product-spec-from-idea",
+      "name": "Product Spec from Idea",
+      "prompt": "Turn this idea into a lean product spec:\\n- Users and jobs-to-be-done; key use cases;\\n- Success metrics (leading/lagging) with targets;\\n- V1 scope (must/should/could) and out-of-scope;\\n- Acceptance criteria (measurable);\\n- Test plan (happy path, edge, abuse).\\nMode: [fast/deep]. ≤500 words.",
+      "use_when": "Move from idea to V1.",
+      "tags": ["product", "spec", "planning"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 12,
+      "slug": "ux-critique",
+      "name": "UX Critique",
+      "prompt": "Critique the UX of [flow/screen]. Deliver:\\n- 10 issues with severity ∈ {P0, P1, P2}, evidence, and concrete fix;\\n- A before→after microcopy table (3–5 rows);\\n- One quick win and one deeper redesign note.\\nMode: [fast/deep].",
+      "use_when": "Actionable UI improvements.",
+      "tags": ["ux", "design", "critique"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 13,
+      "slug": "csv-data-brief",
+      "name": "CSV Data Brief",
+      "prompt": "Given CSV schema: [columns], produce:\\n1) 5 decision-driven questions;\\n2) Validation checks (types, nulls, outliers);\\n3) Analysis steps;\\n4) Exact visuals/tables to produce (chart type, axes, groupings).\\nMode: [fast/deep]. No code unless asked.",
+      "use_when": "Shape an analysis plan before coding.",
+      "tags": ["data", "analytics", "planning"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 14,
+      "slug": "code-from-spec",
+      "name": "Code from Spec",
+      "prompt": "Given this spec: [paste], provide:\\n- Architecture diagram (text) and key components;\\n- Core code snippets in [language/runtime] with minimal dependencies;\\n- Tests (unit/integration) and fixtures;\\n- Failure/edge cases and graceful handling;\\n- Complexity and trade-offs section.\\nMode: [fast/deep]. Keep idiomatic.",
+      "use_when": "From spec to runnable core.",
+      "tags": ["engineering", "architecture", "code"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 15,
+      "slug": "code-review-refactor",
+      "name": "Code Review + Refactor",
+      "prompt": "Review this code: [paste]. Deliver:\\n- Findings by category (correctness, security, performance, clarity);\\n- Hotspots with complexity signals;\\n- Refactor plan in small, safe steps with tests;\\n- Risk/Impact vs Effort matrix (P0/P1/P2);\\n- Before/after snippet for one key function.\\nMode: [fast/deep].",
+      "use_when": "Improve safety and clarity with a plan.",
+      "tags": ["engineering", "refactor", "quality"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 16,
+      "slug": "strict-json-every-time",
+      "name": "Strict JSON Every Time",
+      "prompt": "Return only valid JSON for [task]. Use this schema:\\n{\\n  \"title\": \"string\",\\n  \"summary\": \"string\",\\n  \"risks\": [\"string\"],\\n  \"actions\": [ { \"owner\": \"string\", \"step\": \"string\", \"eta\": \"YYYY-MM-DD\" } ],\\n  \"metrics\": [\"string\"]\\n}\\nNo prose. Validate keys, types, and date format before returning.",
+      "use_when": "Machine-readable output required.",
+      "strict_json_variant": "{\\n  \"title\": \"string\",\\n  \"summary\": \"string\",\\n  \"risks\": [\"string\"],\\n  \"actions\": [ { \"owner\": \"string\", \"step\": \"string\", \"eta\": \"YYYY-MM-DD\" } ],\\n  \"metrics\": [\"string\"]\\n}",
+      "tags": ["json", "automation", "strict"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 17,
+      "slug": "sop-checklist",
+      "name": "SOP / Checklist",
+      "prompt": "Draft a step-by-step SOP for [process]. Include:\\n- Prerequisites and roles;\\n- Steps with time boxes;\\n- Quality gates with pass/fail checks;\\n- Common failure recovery and escalation ladder.\\nMode: [fast/deep]. Output as a checklist.",
+      "use_when": "Repeatable, low-variance execution.",
+      "tags": ["operations", "sop", "process"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 18,
+      "slug": "positioning-icp",
+      "name": "Positioning & ICP",
+      "prompt": "Define positioning for [product]. Provide:\\n- ICP traits (firmographic and behavioral);\\n- JTBD and top pains (ranked);\\n- Alternatives (include do-nothing);\\n- Value proposition (benefit + proof);\\n- 3 key messages;\\n- 3-line elevator pitch.\\nMode: [fast/deep].",
+      "use_when": "Sharpen message–market fit.",
+      "tags": ["marketing", "positioning", "icp"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 19,
+      "slug": "competitive-teardown",
+      "name": "Competitive Teardown",
+      "prompt": "Compare [your product] vs [competitor] for [buyer role]. Cover:\\n- Features and UX (table);\\n- Pricing (typical deal sizes/TCO);\\n- Moat and switching costs;\\n- Buyer objections with crisp replies;\\n- Evidence links (docs, screenshots) if available.\\nMode: [fast/deep].",
+      "use_when": "Side-by-side clarity.",
+      "tags": ["competitive", "analysis", "sales"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 20,
+      "slug": "policy-first-draft-non-legal",
+      "name": "Policy First Draft (Non-Legal)",
+      "prompt": "Draft a non-legal first-pass policy for [topic]. Include:\\n- Scope and definitions; policy owner;\\n- Rules with examples; do/don’t lists;\\n- Compliance checks and escalation path;\\n- Exceptions process;\\n- Review cadence and change log placeholder;\\n- Legal review placeholder.\\nMode: [fast/deep].",
+      "use_when": "First pass policy with clarity.",
+      "tags": ["policy", "governance", "draft"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 21,
+      "slug": "seven-day-learning-plan",
+      "name": "7-Day Learning Plan",
+      "prompt": "Build a 7-day learning plan for [skill/exam]. Include:\\n- Day 0 diagnostic (what to skip/focus);\\n- Daily objectives, resources (≤3/day), and practice tasks;\\n- Daily self-quiz (5 questions) with expected answers;\\n- Day 7 capstone task with rubric.\\nMode: [fast/deep].",
+      "use_when": "Focused upskilling in a week.",
+      "tags": ["learning", "education", "plan"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 22,
+      "slug": "negotiation-prep",
+      "name": "Negotiation Prep",
+      "prompt": "Create a negotiation brief for [deal]. Include:\\n- Goals; walk-away; BATNA;\\n- Concession strategy (give/get);\\n- Questions to surface interests;\\n- Opening script;\\n- Objection map with counters;\\n- Opponent/alignment map (roles, power, interests).\\nMode: [fast/deep].",
+      "use_when": "Plan the conversation before the room.",
+      "tags": ["negotiation", "sales", "strategy"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 23,
+      "slug": "landing-page-copy",
+      "name": "Landing Page Copy",
+      "prompt": "Write a landing page for [offer]. Sections:\\n- Headline and subhead (clear promise);\\n- Value bullets (3–6) with outcomes;\\n- Proof (logos, testimonial lines, metrics);\\n- CTA (primary and secondary);\\n- FAQ (5–7 questions).\\nOptional: provide a variant for [segment].\\nMode: [fast/deep].",
+      "use_when": "Write conversion-first copy.",
+      "tags": ["copywriting", "marketing", "landing-page"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    },
+    {
+      "id": 24,
+      "slug": "automation-blueprint",
+      "name": "Automation Blueprint",
+      "prompt": "Propose automations for [workflow]. Include:\\n- Triggers and prerequisites;\\n- Steps with systems and data sources;\\n- Error handling (retries, dead-letter, idempotency);\\n- Alerts/observability (what, who, channel, thresholds);\\n- SLAs and run-cost model;\\n- ROI estimate (baseline vs future, payback).\\nMode: [fast/deep].",
+      "use_when": "Design automations with ROI.",
+      "tags": ["automation", "process", "roi"],
+      "last_updated": "2025-08-14T16:00:00Z"
+    }
+  ]
+}
